@@ -19,6 +19,9 @@
 
 <script>
 
+import Axios from 'axios'
+
+import Config from './../config/config'
 import TarefaSalvar from './TarefaSalvar.vue'
 import TarefasListaIten from './TarefasListaIten.vue'
 
@@ -31,6 +34,14 @@ export default {
         return {
             tarefas: []
         }
+    },
+    created(){
+        Axios.get(`${Config.ROOT_API}/tarefas`)
+        .then((response) => {
+            // handle success
+            console.log(response)
+            this.tarefas = response.data
+        })
     }
 }
 </script>
