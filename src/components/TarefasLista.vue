@@ -51,7 +51,9 @@ export default {
     data() {
         return {
             tarefas: [],
+            
             exibirFormulario : false,
+
             tarefaSelecionada : undefined
         }
     },
@@ -74,21 +76,45 @@ export default {
     methods:{
         criarTarefa(tarefa){
             Axios.post(`${Config.ROOT_API}/tarefas`, tarefa)
-            .then((response) => {
-                
-                // handle success
-                console.log('POST / tarefas', response)
-                
-                //Pegando a tarefa 
-                this.tarefas.push(response.data)
+                .then((response) => {
+                    
+                    // handle success
+                    console.log('POST / tarefas', response)
+                    
+                    //Pegando a tarefa 
+                    this.tarefas.push(response.data)
 
-                this.exibirFormulario = false
-            })
+                    //
+                    this.resetar()
+                })
             
         },
         editarTarefa(tarefa){
 
             console.log('Editar', tarefa)
+
+            Axios.put(`${Config.ROOT_API}/tarefas/${tarefa.id}`, tarefa)
+                .then((response) => {
+                    
+                    // handle success
+                    console.log(`PUT /tarefas/${tarefa.id}`, response)
+                    
+                    //
+                    const indice = this.tarefas.findIndex(t => t.id === tarefa.id)
+
+                    //
+                    this.tarefas.splice(indice, 1, tarefa)
+                    
+                    //
+                    this.resetar()
+                })
+
+        },
+        resetar(){
+
+            this.tarefaSelecionada = undefined
+            
+            this.exibirFormulario = false
         },
         selecionarTarefaParaEdicao(tarefa){
 
