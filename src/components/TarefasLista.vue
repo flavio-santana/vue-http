@@ -20,14 +20,17 @@
             <TarefasListaIten
                 v-for="tarefa in tarefas"
                 :key="tarefa.id"
-                :tarefa="tarefa" />
+                :tarefa="tarefa" 
+                @editar="selecionarTarefaParaEdicao"/>
         </ul>
 
         <p v-else>Nenhuma tarefa criada.</p>
 
         <TarefaSalvar 
             v-if="exibirFormulario"
-            @criar="criarTarefa"/>
+            :tarefa="tarefaSelecionada"
+            @criar="criarTarefa"
+            @editar="editarTarefa"/>
 
     </div>
 </template>
@@ -48,7 +51,8 @@ export default {
     data() {
         return {
             tarefas: [],
-            exibirFormulario : false
+            exibirFormulario : false,
+            tarefaSelecionada : undefined
         }
     },
     created(){
@@ -81,6 +85,16 @@ export default {
                 this.exibirFormulario = false
             })
             
+        },
+        editarTarefa(tarefa){
+
+            console.log('Editar', tarefa)
+        },
+        selecionarTarefaParaEdicao(tarefa){
+
+            this.tarefaSelecionada = tarefa
+
+            this.exibirFormulario = true
         }
     }
 }
