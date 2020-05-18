@@ -18,7 +18,7 @@
         
         <ul class="list-group" v-if="tarefas.length > 0">
             <TarefasListaIten
-                v-for="tarefa in tarefas"
+                v-for="tarefa in tarefasOrdenadas"
                 :key="tarefa.id"
                 :tarefa="tarefa" 
                 @editar="selecionarTarefaParaEdicao"
@@ -59,6 +59,24 @@ export default {
             tarefaSelecionada : undefined
         }
     },
+    computed: {
+        tarefasOrdenadas(){
+            // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+            return this.tarefas.slice().sort((t1, t2) => {
+
+                if(t1.concluido === t2.concluido){
+                    return t1.titulo < t2.titulo
+                        ? -1
+                        : t1.titulo > t2.titulo
+                            ? 1 
+                            : 0          
+                }
+                
+                return t1.concluido - t2.concluido
+            
+            })
+        }
+    },
     created(){
         Axios.get(`${Config.ROOT_API}/tarefas`)
         .then((response) => {
@@ -77,6 +95,7 @@ export default {
     },
     methods:{
         criarTarefa(tarefa){
+            
             Axios.post(`${Config.ROOT_API}/tarefas`, tarefa)
                 .then((response) => {
                     
@@ -90,6 +109,27 @@ export default {
                     this.resetar()
                 })
             
+            /**
+             * Outra maneira de montar requisições no Axios
+             */
+            /* 
+            Axios.request({
+                method:'post',
+                baseURL: Config.ROOT_API,
+                url: `/tarefas`,
+                data: tarefa
+            }).then((response) => {
+                    
+                    // handle success
+                    console.log('POST / tarefas', response)
+                    
+                    //Pegando a tarefa 
+                    this.tarefas.push(response.data)
+
+                    //
+                    this.resetar()
+                })
+            */
         },
         editarTarefa(tarefa){
 

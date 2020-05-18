@@ -8,7 +8,7 @@
     {
       "id": 2,
       "titulo": "Aprender Vue",
-      "concluido": true
+      "concluido": false
     },
     {
       "titulo": "Aprender Axios",
@@ -19,6 +19,11 @@
       "id": 4,
       "titulo": "Atualizar CV",
       "concluido": true
+    },
+    {
+      "titulo": "Aprender VUE Router",
+      "concluido": false,
+      "id": 5
     }
   ]
 }
