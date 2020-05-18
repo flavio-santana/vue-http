@@ -4,7 +4,7 @@
 
 module.exports = {
   
-    NODE_ENV: '"development"',
+    NODE_ENV: 'development',
     ROOT_API: 'http://localhost:3000',
     //apiURL  : 'http://localhost:3000'
 
