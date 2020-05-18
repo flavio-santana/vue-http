@@ -1,0 +1,10 @@
+
+Abrir um terminal, e no diretório do projeto e executar alinha abaixo. 
+
+npm run serve 
+
+Agora, ir até o diretório 'src/db', e executar o comando seguinte comando. 
+
+npm serve 
+
+
