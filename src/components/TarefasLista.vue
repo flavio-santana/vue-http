@@ -8,7 +8,7 @@
             <div class="col-sm-2">
                 <button 
                     class="bt btn-primary float-right"
-                    @click="exibirFormulario=!exibirFormulario">
+                    @click="exibirFormularioCriarTarefa">
                         <i class="fa fa-plus mr-2">
                             <span>Criar</span>
                         </i>
@@ -22,7 +22,8 @@
                 :key="tarefa.id"
                 :tarefa="tarefa" 
                 @editar="selecionarTarefaParaEdicao"
-                @deletar="deletarTarefa"/>
+                @deletar="deletarTarefa"
+                @concluir="editarTarefa"/>
         </ul>
 
         <p v-else>Nenhuma tarefa criada.</p>
@@ -133,6 +134,15 @@ export default {
                     })
             }
 
+        },
+        exibirFormularioCriarTarefa(event){
+            
+            if(this.tarefaSelecionada){
+                this.tarefaSelecionada = undefined
+                return
+            }
+
+            this.exibirFormulario = !this.exibirFormulario
         },
         resetar(){
 
