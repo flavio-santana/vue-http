@@ -21,7 +21,8 @@
                 v-for="tarefa in tarefas"
                 :key="tarefa.id"
                 :tarefa="tarefa" 
-                @editar="selecionarTarefaParaEdicao"/>
+                @editar="selecionarTarefaParaEdicao"
+                @deletar="deletarTarefa"/>
         </ul>
 
         <p v-else>Nenhuma tarefa criada.</p>
@@ -108,6 +109,29 @@ export default {
                     //
                     this.resetar()
                 })
+
+        },
+        deletarTarefa(tarefa){
+
+            console.log('Deletar', tarefa)
+
+            const confirmar = window.confirm(`Deseja deletar a tarefa "${tarefa.titulo}"?`)
+            
+            if(confirmar){
+                 Axios.delete(`${Config.ROOT_API}/tarefas/${tarefa.id}`)
+                    .then((response) => {
+                        
+                        // handle success
+                        console.log(`DELETE /tarefas/${tarefa.id}`, response)
+                        
+                        //
+                        const indice = this.tarefas.findIndex(t => t.id === tarefa.id)
+
+                        //
+                        this.tarefas.splice(indice, 1)
+                        
+                    })
+            }
 
         },
         resetar(){
