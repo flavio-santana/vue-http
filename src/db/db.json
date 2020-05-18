@@ -16,11 +16,6 @@
       "id": 3
     },
     {
-      "id": 4,
-      "titulo": "Atualizar CV",
-      "concluido": true
-    },
-    {
       "titulo": "Aprender VUE Router",
       "concluido": false,
       "id": 5

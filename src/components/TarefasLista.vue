@@ -41,9 +41,8 @@
 
 <script>
 
-import Axios from 'axios'
+import Axios from './../axios'
 
-import Config from './../config/config'
 import TarefaSalvar from './TarefaSalvar.vue'
 import TarefasListaIten from './TarefasListaIten.vue'
 
@@ -79,7 +78,7 @@ export default {
         }
     },
     created(){
-        Axios.get(`${Config.ROOT_API}/tarefas`)
+        Axios.get(`/tarefas`)
         .then((response) => {
 
             // handle success
@@ -121,7 +120,7 @@ export default {
     methods:{
         criarTarefa(tarefa){
             
-            Axios.post(`${Config.ROOT_API}/tarefas`, tarefa)
+            Axios.post(`/tarefas`, tarefa)
                 .then((response) => {
                     
                     // handle success
@@ -160,7 +159,7 @@ export default {
 
             console.log('Editar', tarefa)
 
-            Axios.put(`${Config.ROOT_API}/tarefas/${tarefa.id}`, tarefa)
+            Axios.put(`/tarefas/${tarefa.id}`, tarefa)
                 .then((response) => {
                     
                     // handle success
@@ -184,7 +183,7 @@ export default {
             const confirmar = window.confirm(`Deseja deletar a tarefa "${tarefa.titulo}"?`)
             
             if(confirmar){
-                 Axios.delete(`${Config.ROOT_API}/tarefas/${tarefa.id}`)
+                 Axios.delete(`/tarefas/${tarefa.id}`)
                     .then((response) => {
                         
                         // handle success
