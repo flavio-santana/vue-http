@@ -16,23 +16,23 @@ export default Axios.create({
 })
 */
 
-instancia.interceptors.request.use(config => {
+instancia.interceptors.request.use(Config => {
     
-    console.log ('Interceptando requisição: ', config)
+    console.log ('Interceptando requisição: ', Config)
 
-        config.data = {
-            ...config.data,
+        Config.data = {
+            ...Config.data,
             curso: 'Vue JS' 
         }
 
         //Enviando para todas os tipos de requisições
         //config.headers.common['Authorization'] = `Bearer ${window.localStorage.getItem('token')}`
-        config.headers.common['Authorization'] = `Bearer token_jwt`
+        Config.headers.common['Authorization'] = `Bearer token_jwt`
 
         //Enviando para PUT
-        config.headers.put['Meu-Cabecalho'] = 'Curso Vue JS'
+        Config.headers.put['Meu-Cabecalho'] = 'Curso Vue JS'
 
-        return config
+        return Config
         
         /*return new Promise ((resolve, reject)=>{
             console.log('Fazendo requisição aguardar...')
@@ -51,5 +51,30 @@ instancia.interceptors.request.use(config => {
     //Passando o erro para frente para ser capturado por algum component
     return Promisse.reject(error)
 })
+
+
+//Capturando os erros gerados na resposta de forma global
+instancia.interceptors.response.use(response => {
+
+    //
+    console.log('Interceptando resposta...', response.status)
+
+    //
+    if(Array.isArray(response.data)){
+
+        response.data = response.data.slice(1,3)
+
+    }
+
+    return response 
+
+},error =>{
+
+    console.log('Erro capturado no interceptador de respostas:', error)
+
+    //Passando o error para frente para ser capturado por algum component
+    return Promise.reject(error)
+})
+
 
 export default instancia
