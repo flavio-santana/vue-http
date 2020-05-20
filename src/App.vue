@@ -30,8 +30,11 @@ export default {
     },
     /**
      * Trabalhando com requisições simultâneas no Axios
+     * 
+     * Implementado método Async Await, para tornar o código 
+     * mais legível, fácil, consumir API's e de se entender.  
      */
-    created(){
+    async created(){
       
       /*
       Axios.all([
@@ -51,6 +54,7 @@ export default {
       }))
       */
 
+      /*
       Axios.all([
         
         Axios.get(`${Config.ROOT_API}/tarefas/1`),
@@ -67,6 +71,14 @@ export default {
 
         console.log('Tarefa 3:', tarefa3) 
       })
+      */
+
+      const tarefa1 = await Axios.get(`${Config.ROOT_API}/tarefas/1`)
+      const tarefa3 = await Axios.get(`${Config.ROOT_API}/tarefas/3`)
+
+      console.log('Requisições simultâneas:')
+      console.log('Tarefa 1:', tarefa1)  
+      console.log('Tarefa 3:', tarefa3)
 
     }
 }

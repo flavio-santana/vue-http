@@ -176,6 +176,7 @@ export default {
                 })
 
         },
+        /*
         deletarTarefa(tarefa){
 
             console.log('Deletar', tarefa)
@@ -183,6 +184,7 @@ export default {
             const confirmar = window.confirm(`Deseja deletar a tarefa "${tarefa.titulo}"?`)
             
             if(confirmar){
+                
                  Axios.delete(`/tarefas/${tarefa.id}`)
                     .then((response) => {
                         
@@ -199,6 +201,49 @@ export default {
             }
 
         },
+        */
+
+        /**
+         * Implementado método Async Await, para tornar o código 
+         * mais legível efácil mais legível, fácil, consumir API's 
+         * e de se entender.
+         */
+        async deletarTarefa(tarefa){
+
+            console.log('Deletar', tarefa)
+
+            const confirmar = window.confirm(`Deseja deletar a tarefa "${tarefa.titulo}"?`)
+            
+            if(confirmar){
+                
+                // Tratamento de erro
+                try{
+
+                    //
+                    const response = await Axios.delete(`/tarefas/${tarefa.id}`)
+
+                    // handle success
+                    console.log(`DELETE /tarefas/${tarefa.id}`, response)
+
+                    //
+                    const indice = this.tarefas.findIndex(t => t.id === tarefa.id)
+
+                    //
+                    this.tarefas.splice(indice, 1)
+
+                }catch(error){
+
+                    console.log('Error ao deletar tarefa...')        
+
+                }finally{
+                    
+                    console.log('Sempre executado...')
+                }
+                
+            }
+
+        },
+        
         exibirFormularioCriarTarefa(event){
             
             if(this.tarefaSelecionada){

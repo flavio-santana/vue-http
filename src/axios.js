@@ -68,7 +68,7 @@ instancia.interceptors.response.use(response => {
          * apresentado na tela. 
          * 
          */  
-        response.data = response.data.slice(1,3)
+        //response.data = response.data.slice(1,3)
 
     }
 
