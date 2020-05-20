@@ -62,6 +62,12 @@ instancia.interceptors.response.use(response => {
     //
     if(Array.isArray(response.data)){
 
+        /**
+         * Com o código abaixo, interceptamos os dados coletados na API
+         * e realizamos um "corte" nos registros conforme está sendo 
+         * apresentado na tela. 
+         * 
+         */  
         response.data = response.data.slice(1,3)
 
     }
