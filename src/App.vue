@@ -19,11 +19,55 @@
 
 <script>
 
+import Axios from 'axios'
+import Config from './config/config'
+
 import TarefasLista from './components/TarefasLista.vue'
 
 export default {
     components: {
         TarefasLista
+    },
+    /**
+     * Trabalhando com requisições simultâneas no Axios
+     */
+    created(){
+      
+      /*
+      Axios.all([
+        
+        Axios.get(`${Config.ROOT_API}/tarefas/1`),
+      
+        Axios.get(`${Config.ROOT_API}/tarefas/3`)
+      
+      ]).then(Axios.spread((tarefa1, tarefa3) => {
+
+        console.log('Requisições simultâneas:')
+        
+        console.log('Tarefa 1:', tarefa1)
+        
+        console.log('Tarefa 3:', tarefa3)
+
+      }))
+      */
+
+      Axios.all([
+        
+        Axios.get(`${Config.ROOT_API}/tarefas/1`),
+      
+        Axios.get(`${Config.ROOT_API}/tarefas/3`)
+      
+      ]).then(response => {
+
+        const [tarefa1, tarefa3] = response
+        
+        console.log('Requisições simultâneas:')
+        
+        console.log('Tarefa 1:', tarefa1)
+
+        console.log('Tarefa 3:', tarefa3) 
+      })
+
     }
 }
 </script>
